@@ -4,6 +4,10 @@ import chart from "chart.js/auto";
 
 const weights = ref([]);
 
+//const weightChart1 = ref(null);
+
+//const weightChart = shallowRef(null);
+
 const weightInput = ref(60.0);
 
 const currentWeight = computed(() => {
@@ -26,9 +30,14 @@ const addWeight = () => {
   </div>
   <form @submit.prevent="addWeight">
     <input type="number" v-model="weightInput" />
+    <input type="submit" Value="Add Weight" />
   </form>
   <div v-if="weights.length > 0">
     <h2>Last 7 days</h2>
+
+    <div class="canvas-book">
+      <canvas ref="weightChart1"></canvas>
+    </div>
 
     <div class="weight-history">
       <h2>Weight history</h2>
