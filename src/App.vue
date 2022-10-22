@@ -1,10 +1,7 @@
 <script setup>
 import { ref, shallowRef, computed, onMounted, watch, nextTick } from "vue";
 import chart from "chart.js/auto";
-import useApi from "./composables/useApi.js";
-
-const { currentState, fetchTariffList } = useApi();
-console.log("I am logged", currentState);
+import Flex from "./components/flex.vue";
 const weights = ref([]);
 
 const weightChart1 = ref(null);
@@ -16,8 +13,6 @@ const weightInput = ref(60.0);
 const currentWeight = computed(() => {
   return weights.value.sort((a, b) => b.date - a.date)[0] || { weight: 0 };
 });
-
-onMounted(() => fetchTariffList());
 
 const addWeight = () => {
   weights.value.push({
@@ -72,7 +67,7 @@ watch(
 </script>
 
 <template>
-  <h1>Weight Tracker</h1>
+  <Flex />
   <div class="current">
     <span>{{ currentWeight.weight }}</span>
     <small>Current Weight in KG</small>
@@ -102,9 +97,6 @@ watch(
         </tr>
       </table>
     </div>
-  </div>
-  <div class="ip" v-if="currentState">
-    currently you are using {{ currentState?.ip }} Ip
   </div>
 </template>
 
@@ -244,8 +236,5 @@ form input[type="submit"]:hover {
 .weight-history ul li small {
   color: #888;
   font-style: italic;
-}
-.ip {
-  text-align: center;
 }
 </style>
